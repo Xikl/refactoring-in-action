@@ -36,11 +36,7 @@ public class Customer {
         while (rentals.hasMoreElements()) {
             Rental each = rentals.nextElement();
             double thisAmount = each.getCharge();
-            frequentRenterPoints ++;
-            if (each.getMovie().getPriceCode() == NEW_RELEASE &&
-                    each.getDayRented() > 1) {
-                frequentRenterPoints ++;
-            }
+            frequentRenterPoints += each.getFrequentRenterPoints();
             result.concat("\t" + each.getMovie().getTitle() + "\t")
             .concat(String.valueOf(thisAmount));
             totalAmount += thisAmount;
@@ -48,6 +44,16 @@ public class Customer {
         result += "Amount owed is ".concat(String.valueOf(totalAmount))
                 .concat("You earned ").concat(String.valueOf(frequentRenterPoints))
                 .concat("frequentRenterPoints");
+        return result;
+    }
+
+    private double getTotalCharge() {
+        double result = 0;
+        Enumeration<Rental> rentals = _rentals.elements();
+        while (rentals.hasMoreElements()) {
+            Rental each = rentals.nextElement();
+            result += each.getCharge();
+        }
         return result;
     }
 
