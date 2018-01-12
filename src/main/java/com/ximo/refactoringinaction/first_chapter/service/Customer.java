@@ -29,20 +29,15 @@ public class Customer {
     }
 
     public String statement() {
-        double totalAmount = 0;
-        int frequentRenterPoints = 0;
         Enumeration<Rental> rentals = _rentals.elements();
         String result = "Rental Record for " + getName();
         while (rentals.hasMoreElements()) {
             Rental each = rentals.nextElement();
-            double thisAmount = each.getCharge();
-            frequentRenterPoints += each.getFrequentRenterPoints();
             result.concat("\t" + each.getMovie().getTitle() + "\t")
-            .concat(String.valueOf(thisAmount));
-            totalAmount += thisAmount;
+            .concat(String.valueOf(each.getCharge()));
         }
-        result += "Amount owed is ".concat(String.valueOf(totalAmount))
-                .concat("You earned ").concat(String.valueOf(frequentRenterPoints))
+        result += "Amount owed is ".concat(String.valueOf(getTotalCharge()))
+                .concat("You earned ").concat(String.valueOf(getTotalFrequentRenterPoints()))
                 .concat("frequentRenterPoints");
         return result;
     }
@@ -53,6 +48,16 @@ public class Customer {
         while (rentals.hasMoreElements()) {
             Rental each = rentals.nextElement();
             result += each.getCharge();
+        }
+        return result;
+    }
+
+    private int getTotalFrequentRenterPoints() {
+        int result = 0;
+        Enumeration<Rental> rentals = _rentals.elements();
+        while (rentals.hasMoreElements()) {
+            Rental rental = rentals.nextElement();
+            result += rental.getFrequentRenterPoints();
         }
         return result;
     }

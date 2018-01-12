@@ -7,7 +7,7 @@ package com.ximo.refactoringinaction.first_chapter.constant;
  */
 public interface MovieConstatnt {
 
-    int CHILDRENS = 2;
+    int CHILDREN = 2;
     int REGULAR = 0;
     int NEW_RELEASE = 1;
 

@@ -18,35 +18,10 @@ public class Rental {
     private int dayRented;
 
     public double getCharge() {
-        double result = 0;
-        switch (this.getMovie().getPriceCode()) {
-            case REGULAR:
-                result = 2;
-                if (this.getDayRented() > 2) {
-                    result += (this.getDayRented() - 2) * 1.5;
-                }
-                break;
-            case NEW_RELEASE:
-                result += this.getDayRented() * 3;
-                break;
-            case CHILDRENS:
-                result = 1.5;
-                if (this.getDayRented() > 3) {
-                    result = (this.getDayRented() - 3) * 1.5;
-                }
-                break;
-            default:
-                System.out.println("你好歹买点啥");
-                break;
-        }
-        return result;
+        return movie.getCharge(getDayRented());
     }
 
     public int getFrequentRenterPoints() {
-        if (getMovie().getPriceCode() == NEW_RELEASE &&
-                getDayRented() > 1) {
-            return 2;
-        }
-        return 1;
+        return movie.getFrequentRenterPoints(getDayRented());
     }
 }
